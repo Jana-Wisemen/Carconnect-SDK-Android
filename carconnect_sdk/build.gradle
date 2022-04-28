@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 def versionMajor = 1
@@ -67,4 +68,14 @@ dependencies {
 
     //Konfetti
     implementation 'nl.dionsegijn:konfetti-xml:2.0.2'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+            }
+        }
+    }
 }
