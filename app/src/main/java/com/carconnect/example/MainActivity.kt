@@ -11,13 +11,14 @@ import com.carconnect.android_sdk.CarConnect
 import com.carconnect.android_sdk.models.AuthenticationOptions
 import com.carconnect.android_sdk.models.Environment
 import com.carconnect.android_sdk.networking.CarConnectResult
+import com.carconnect.android_sdk.util.Authentication
 
 class MainActivity : AppCompatActivity() {
 
     val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
             val intent = result.data
-            // Handle the Intent
+            val tokens = intent?.getStringExtra(Authentication.RESULT_TOKENS)
         }
     }
 
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        CarConnect.register("5e1fb9d4-3bcd-48dc-9943-337c24fe0e74", Environment.development)
+        CarConnect.register("<CARCONNECT_API_KEY>", Environment.development)
 
         CarConnect.getInstance().brands { result ->
             when(result){
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btnButton).setOnClickListener {
-            val intent = CarConnect.getInstance().authenticationIntent(this, AuthenticationOptions("Jesse", null))
+            val intent = CarConnect.getInstance().authenticationIntent(this, AuthenticationOptions("<USERNAME>", "<OPTIONAL_BRAND>"))
 
             startForResult.launch(intent)
         }
