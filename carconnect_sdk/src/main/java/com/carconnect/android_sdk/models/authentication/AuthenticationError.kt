@@ -1,4 +1,4 @@
-package com.carconnect.android_sdk.models
+package com.carconnect.android_sdk.models.authentication
 
 enum class AuthenticationError {
     /// There is already an authentication process ongoing

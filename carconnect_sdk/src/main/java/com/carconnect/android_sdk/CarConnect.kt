@@ -2,13 +2,14 @@ package com.carconnect.android_sdk
 
 import android.content.Context
 import android.content.Intent
-import com.carconnect.android_sdk.models.AuthenticationOptions
-import com.carconnect.android_sdk.models.AuthenticationResult
+import com.carconnect.android_sdk.models.authentication.AuthenticationOptions
 import com.carconnect.android_sdk.models.Brand
+import com.carconnect.android_sdk.models.ConnectionCount
 import com.carconnect.android_sdk.models.Environment
 import com.carconnect.android_sdk.networking.CarConnectResult
 import com.carconnect.android_sdk.networking.RestClient
 import com.carconnect.android_sdk.repositories.BrandsRepository
+import com.carconnect.android_sdk.repositories.ConnectionRepository
 import com.carconnect.android_sdk.ui.AuthenticationActivity
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -38,6 +39,12 @@ class CarConnect private constructor(
     fun brands(handler: (CarConnectResult<List<Brand>>) -> Unit) {
         RestClient.session.launch {
             BrandsRepository.getBrands().run(handler)
+        }
+    }
+
+    fun totalConnections(email: String, handler: (CarConnectResult<ConnectionCount>) -> Unit){
+        RestClient.session.launch {
+            ConnectionRepository.getTotalConnections(email).run(handler)
         }
     }
 

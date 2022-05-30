@@ -2,7 +2,7 @@ package com.carconnect.android_sdk.helpers
 
 import android.util.Log
 import android.webkit.JavascriptInterface
-import com.carconnect.android_sdk.models.Authentication
+import com.carconnect.android_sdk.models.authentication.Authentication
 
 class JsMessageHandlerInterface(private val handler: Handler) {
 

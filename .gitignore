@@ -20,3 +20,5 @@
 */out
 
 app/build
+
+app/src/main/res/values/carconnect.xml

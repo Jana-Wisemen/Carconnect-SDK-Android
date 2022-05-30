@@ -18,8 +18,8 @@ import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
 import com.carconnect.android_sdk.R
 import com.carconnect.android_sdk.helpers.JsMessageHandlerInterface
-import com.carconnect.android_sdk.models.Authentication
-import com.carconnect.android_sdk.models.buildRedirect
+import com.carconnect.android_sdk.models.authentication.Authentication
+import com.carconnect.android_sdk.models.authentication.buildRedirect
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
 import nl.dionsegijn.konfetti.core.emitter.Emitter

@@ -2,7 +2,7 @@ package com.carconnect.android_sdk.repositories
 
 import android.net.Uri
 import com.carconnect.android_sdk.CarConnect
-import com.carconnect.android_sdk.models.AuthenticationOptions
+import com.carconnect.android_sdk.models.authentication.AuthenticationOptions
 
 object AuthenticationRepository {
 

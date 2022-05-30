@@ -8,14 +8,14 @@ import android.widget.Button
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.carconnect.android_sdk.CarConnect
-import com.carconnect.android_sdk.models.AuthenticationOptions
+import com.carconnect.android_sdk.models.authentication.AuthenticationOptions
 import com.carconnect.android_sdk.models.Environment
+import com.carconnect.android_sdk.models.authentication.Authentication
 import com.carconnect.android_sdk.networking.CarConnectResult
-import com.carconnect.android_sdk.util.Authentication
 
 class MainActivity : AppCompatActivity() {
 
-    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
             val intent = result.data
             val tokens = intent?.getStringExtra(Authentication.RESULT_TOKENS)
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        CarConnect.register("<CARCONNECT_API_KEY>", Environment.development)
+        CarConnect.register(getString(R.string.carconnect_client_id), Environment.development)
 
         CarConnect.getInstance().brands { result ->
             when(result){
@@ -35,8 +35,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        CarConnect.getInstance().totalConnections(email = getString(R.string.username)) { result ->
+            when(result){
+                is CarConnectResult.Success -> Log.d("CarConnectExample", result.value.toString())
+                is CarConnectResult.Failure -> Log.e("CarConnectExample", result.message ?: "-", result.throwable)
+            }
+        }
+
         findViewById<Button>(R.id.btnButton).setOnClickListener {
-            val intent = CarConnect.getInstance().authenticationIntent(this, AuthenticationOptions("<USERNAME>", "<OPTIONAL_BRAND>"))
+            val intent = CarConnect.getInstance().authenticationIntent(this, AuthenticationOptions(
+                username = getString(R.string.username),
+                brand = null
+            ))
 
             startForResult.launch(intent)
         }

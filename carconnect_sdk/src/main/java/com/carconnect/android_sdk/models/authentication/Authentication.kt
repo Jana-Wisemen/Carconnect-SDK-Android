@@ -1,4 +1,4 @@
-package com.carconnect.android_sdk.models
+package com.carconnect.android_sdk.models.authentication
 
 import android.net.Uri
 import com.carconnect.android_sdk.networking.UriDeserializer
@@ -10,6 +10,8 @@ data class Authentication private constructor(
     val redirect: AuthenticationRedirect?
 ) {
     companion object {
+        const val RESULT_TOKENS = "RESULT_TOKENS"
+
         fun fromJson(json: String): Authentication {
             val gson = GsonBuilder().registerTypeAdapter(Uri::class.java, UriDeserializer()).create()
             return gson.fromJson(json, object : TypeToken<Authentication>() {}.type)

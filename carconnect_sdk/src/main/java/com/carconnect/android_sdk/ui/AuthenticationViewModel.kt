@@ -4,8 +4,8 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.carconnect.android_sdk.CarConnect
-import com.carconnect.android_sdk.models.Authentication
-import com.carconnect.android_sdk.models.AuthenticationOptions
+import com.carconnect.android_sdk.models.authentication.Authentication
+import com.carconnect.android_sdk.models.authentication.AuthenticationOptions
 import com.carconnect.android_sdk.repositories.AuthenticationRepository
 import com.carconnect.android_sdk.util.doubleArgsViewModelFactory
 
