@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        CarConnect.register(getString(R.string.carconnect_client_id), Environment.development)
+        CarConnect.register("CLIENT_ID", Environment.development)
 
         CarConnect.getInstance().brands { result ->
             when(result){
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        CarConnect.getInstance().totalConnections(email = getString(R.string.username)) { result ->
+        CarConnect.getInstance().totalConnections(email = "EMAIL") { result ->
             when(result){
                 is CarConnectResult.Success -> Log.d("CarConnectExample", result.value.toString())
                 is CarConnectResult.Failure -> Log.e("CarConnectExample", result.message ?: "-", result.throwable)
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btnButton).setOnClickListener {
             val intent = CarConnect.getInstance().authenticationIntent(this, AuthenticationOptions(
-                username = getString(R.string.username),
+                username = "EMAIL",
                 brand = null
             ))
 
