@@ -29,9 +29,17 @@ fun Authentication.buildRedirect(url: Uri): Uri? {
     redirect ?: return null
 
     val redirectUrl = redirect.url
-    return if (url.queryParameterNames.containsAll(redirect.parameters)) {
-        redirectUrl.buildUpon().appendQueryParameter("params", url.query.toString()).build()
-    } else {
-        redirectUrl
+    val fragmentUri = Uri.parse("http://localhost?" + url.fragment)
+
+    return when {
+        url.queryParameterNames.containsAll(redirect.parameters) -> {
+            redirectUrl.buildUpon().appendQueryParameter("params", url.query.toString()).build()
+        }
+        url.fragment != null && fragmentUri.queryParameterNames.containsAll(redirect.parameters) -> {
+            redirectUrl.buildUpon().appendQueryParameter("params", fragmentUri.query).build()
+        }
+        else -> {
+            redirectUrl
+        }
     }
 }
