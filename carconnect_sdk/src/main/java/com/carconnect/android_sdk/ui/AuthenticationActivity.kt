@@ -87,7 +87,7 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
                 ): Boolean {
                     val capture = mViewModel.authentication?.redirect?.capture
 
-                    if(capture != null && request?.url.toString().contains(capture)){
+                    if(capture != null && request?.url.toString().startsWith(capture)){
                         Log.d("shouldOverrideUrl", "request: " + request?.url.toString())
                         val uri = mViewModel.authentication?.buildRedirect(request?.url ?: return super.shouldOverrideUrlLoading(view, request))
                         Log.d("shouldOverrideUrl", "redirect: " + uri.toString())
