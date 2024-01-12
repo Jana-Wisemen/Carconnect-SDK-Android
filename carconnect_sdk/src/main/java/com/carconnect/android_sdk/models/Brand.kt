@@ -21,7 +21,9 @@ data class Brand(
 
     data class Options(
         val beta: String,
-        val regions: Regions
+        val regions: Regions,
+        val fleetOnly: Boolean,
+        val aaos: Boolean
     )
 
     data class Regions(
