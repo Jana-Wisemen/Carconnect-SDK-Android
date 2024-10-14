@@ -9,7 +9,7 @@ object AuthenticationRepository {
     fun getAuthenticationUrl(options: AuthenticationOptions, carConnect: CarConnect): Uri {
         return Uri.parse(carConnect.environment.baseUrl)
             .buildUpon()
-            .appendEncodedPath("v2/authentication")
+            .appendEncodedPath("onboarding/authentication")
             .appendQueryParameter("clientId", carConnect.clientId)
             .apply {
                 options.username?.let{
