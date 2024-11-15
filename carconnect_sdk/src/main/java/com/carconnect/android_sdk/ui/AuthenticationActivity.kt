@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.webkit.CookieManager
 import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
@@ -67,6 +68,7 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
         with(webView){
             clearCache(true)
             clearHistory()
+            clearFormData()
             CookieManager.getInstance().removeAllCookies(null)
             CookieManager.getInstance().flush()
 
@@ -76,6 +78,7 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
                 loadWithOverviewMode = true
                 useWideViewPort = true
                 domStorageEnabled = true
+                cacheMode = WebSettings.LOAD_NO_CACHE
             }
 
             addJavascriptInterface(JsMessageHandlerInterface(this@AuthenticationActivity), "Android")
