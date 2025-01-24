@@ -35,6 +35,7 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
         const val EXTRA_USERNAME = "EXTRA_USERNAME"
         const val EXTRA_BRAND = "EXTRA_BRAND"
         const val RESULT_TOKENS = "RESULT_TOKENS"
+        const val TAG = "CARCONNECT_SDK"
     }
 
     private val username: String? by lazy { intent.getStringExtra(EXTRA_USERNAME) }
@@ -49,6 +50,8 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authentication)
 
+        Log.d(TAG, "onCreate")
+
         mViewModel = ViewModelProvider(this, AuthenticationViewModel.factory(username, brand))
             .get(AuthenticationViewModel::class.java)
 
@@ -58,6 +61,13 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
 
     private fun initCloseButton() {
         findViewById<ImageView>(R.id.btnClose).setOnClickListener {
+            /*try {
+                deleteDatabase("webview.db");
+                deleteDatabase("webviewCache.db");
+            } catch (ex: Exception){
+
+            }*/
+
             setResult(Activity.RESULT_CANCELED)
             finish()
         }
@@ -65,6 +75,8 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWebView() {
+        Log.d(TAG, "initwebview")
+
         with(webView){
             clearCache(true)
             clearHistory()
@@ -88,12 +100,15 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
                     view: WebView?,
                     request: WebResourceRequest?
                 ): Boolean {
+
+                    Log.d(TAG, "mViewModel.authentication?.redirect ${mViewModel.authentication?.redirect}")
+                    Log.d(TAG, "mViewModel.authentication?.redirect?.capture ${mViewModel.authentication?.redirect?.capture}")
                     val capture = mViewModel.authentication?.redirect?.capture
 
                     if(capture != null && request?.url.toString().startsWith(capture)){
-                        Log.d("shouldOverrideUrl", "request: " + request?.url.toString())
+                        Log.d("TAG", "request: " + request?.url.toString())
                         val uri = mViewModel.authentication?.buildRedirect(request?.url ?: return super.shouldOverrideUrlLoading(view, request))
-                        Log.d("shouldOverrideUrl", "redirect: " + uri.toString())
+                        Log.d("TAG", "redirect: " + uri.toString())
                         loadUrl(uri.toString())
                     }
 
@@ -101,16 +116,19 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
                 }
 
                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    Log.d(TAG, "onpage started")
                     loading(true)
                     super.onPageStarted(view, url, favicon)
                 }
 
                 override fun onPageFinished(view: WebView?, url: String?) {
+                    Log.d(TAG, "onpage started")
                     loading(false)
                     super.onPageFinished(view, url)
                 }
             }
 
+            Log.d(TAG, "load url ${mViewModel.getAuthenticationUrl().toString()}")
             loadUrl(mViewModel.getAuthenticationUrl().toString())
         }
     }
