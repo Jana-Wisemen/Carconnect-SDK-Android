@@ -4,12 +4,16 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.http.SslError
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.webkit.CookieManager
+import android.webkit.SslErrorHandler
+import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -90,6 +94,7 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
                 loadWithOverviewMode = true
                 useWideViewPort = true
                 domStorageEnabled = true
+                javaScriptCanOpenWindowsAutomatically = true
                 cacheMode = WebSettings.LOAD_NO_CACHE
             }
 
@@ -113,6 +118,30 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
                     }
 
                     return super.shouldOverrideUrlLoading(view, request)
+                }
+
+                override fun onReceivedSslError(
+                    view: WebView?,
+                    handler: SslErrorHandler?,
+                    error: SslError?
+                ) {
+                    super.onReceivedSslError(view, handler, error)
+                    Log.d(TAG, "onReceivedSslError ${error}")
+                    Log.d(TAG, "onReceivedSslError ${error?.url}")
+
+                }
+
+                override fun onReceivedError(
+                    view: WebView?,
+                    request: WebResourceRequest?,
+                    error: WebResourceError?
+                ) {
+                    super.onReceivedError(view, request, error)
+                    Log.d(TAG, "onReceivedError ${error}")
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        Log.d(TAG, "onReceivedError ${error?.errorCode}")
+                        Log.d(TAG, "onReceivedError ${error?.description}")
+                    }
                 }
 
                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
