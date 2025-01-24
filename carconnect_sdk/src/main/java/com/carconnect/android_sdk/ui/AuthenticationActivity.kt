@@ -140,6 +140,7 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
     override fun onAuthentication(authentication: Authentication) {
         runOnUiThread {
             mViewModel.authentication = authentication
+            Log.d(TAG, "onAuthentication ${authentication.url}")
             webView.loadUrl(authentication.url)
         }
     }
