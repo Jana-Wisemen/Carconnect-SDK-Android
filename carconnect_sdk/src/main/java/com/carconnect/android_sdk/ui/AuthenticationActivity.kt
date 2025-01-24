@@ -116,13 +116,13 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
                 }
 
                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                    Log.d(TAG, "onpage started")
+                    Log.d(TAG, "onpage started $url")
                     loading(true)
                     super.onPageStarted(view, url, favicon)
                 }
 
                 override fun onPageFinished(view: WebView?, url: String?) {
-                    Log.d(TAG, "onpage started")
+                    Log.d(TAG, "onpage Finished")
                     loading(false)
                     super.onPageFinished(view, url)
                 }
