@@ -94,7 +94,6 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
                 loadWithOverviewMode = true
                 useWideViewPort = true
                 domStorageEnabled = true
-                javaScriptCanOpenWindowsAutomatically = true
                 cacheMode = WebSettings.LOAD_NO_CACHE
             }
 
@@ -125,9 +124,10 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
                     handler: SslErrorHandler?,
                     error: SslError?
                 ) {
-                    super.onReceivedSslError(view, handler, error)
+                    //super.onReceivedSslError(view, handler, error)
                     Log.d(TAG, "onReceivedSslError ${error}")
                     Log.d(TAG, "onReceivedSslError ${error?.url}")
+                    handler?.proceed()
 
                 }
 
