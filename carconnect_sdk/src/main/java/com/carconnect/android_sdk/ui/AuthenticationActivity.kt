@@ -128,8 +128,11 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
                     Log.d(TAG, "onReceivedSslError ${error}")
                     Log.d(TAG, "onReceivedSslError Brand ${brand}")
 
-
-                    handler?.proceed()
+                    if(brand.equals("bmw", true)) {
+                        handler?.proceed()
+                    } else {
+                        super.onReceivedSslError(view, handler, error)
+                    }
 
                 }
 
