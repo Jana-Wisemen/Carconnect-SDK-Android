@@ -126,9 +126,9 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
                 ) {
                     //super.onReceivedSslError(view, handler, error)
                     Log.d(TAG, "onReceivedSslError ${error}")
-                    Log.d(TAG, "onReceivedSslError url ${error?.url}")
-                    Log.d(TAG, "onReceivedSslError primary error ${error?.primaryError}")
-                    Log.d(TAG, "onReceivedSslError primary certificate ${error?.certificate}")
+                    Log.d(TAG, "onReceivedSslError Brand ${brand}")
+
+
                     handler?.proceed()
 
                 }
