@@ -50,7 +50,7 @@ class CarConnect private constructor(
 
     fun authenticationIntent(context: Context, options: AuthenticationOptions): Intent{
         return Intent(context, AuthenticationActivity::class.java).apply {
-            putExtra(AuthenticationActivity.EXTRA_USERNAME, options.username)
+            putExtra(AuthenticationActivity.EXTRA_CODE, options.code)
             putExtra(AuthenticationActivity.EXTRA_BRAND, options.brand)
         }
     }
