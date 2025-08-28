@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btnButton).setOnClickListener {
             val intent = CarConnect.getInstance().authenticationIntent(this, AuthenticationOptions(
-                username = "EMAIL",
+                code = "CODE",
                 brand = null
             ))
 

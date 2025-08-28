@@ -32,12 +32,12 @@ import java.util.concurrent.TimeUnit
 internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInterface.Handler {
 
     companion object{
-        const val EXTRA_USERNAME = "EXTRA_USERNAME"
+        const val EXTRA_CODE = "EXTRA_CODE"
         const val EXTRA_BRAND = "EXTRA_BRAND"
         const val RESULT_TOKENS = "RESULT_TOKENS"
     }
 
-    private val username: String? by lazy { intent.getStringExtra(EXTRA_USERNAME) }
+    private val code: String? by lazy { intent.getStringExtra(EXTRA_CODE) }
     private val brand: String? by lazy { intent.getStringExtra(EXTRA_BRAND) }
     lateinit var mViewModel: AuthenticationViewModel
 
@@ -49,7 +49,7 @@ internal class AuthenticationActivity : AppCompatActivity(), JsMessageHandlerInt
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authentication)
 
-        mViewModel = ViewModelProvider(this, AuthenticationViewModel.factory(username, brand))
+        mViewModel = ViewModelProvider(this, AuthenticationViewModel.factory(code, brand))
             .get(AuthenticationViewModel::class.java)
 
         initWebView()

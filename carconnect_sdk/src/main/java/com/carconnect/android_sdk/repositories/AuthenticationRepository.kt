@@ -12,8 +12,8 @@ object AuthenticationRepository {
             .appendEncodedPath("onboarding/authentication")
             .appendQueryParameter("clientId", carConnect.clientId)
             .apply {
-                options.username?.let{
-                    appendQueryParameter("username", it)
+                options.code?.let{
+                    appendQueryParameter("code", it)
                 }
                 options.brand?.let {
                     appendQueryParameter("brand", it)

@@ -9,14 +9,14 @@ import com.carconnect.android_sdk.models.authentication.AuthenticationOptions
 import com.carconnect.android_sdk.repositories.AuthenticationRepository
 import com.carconnect.android_sdk.util.doubleArgsViewModelFactory
 
-class AuthenticationViewModel(val username: String?, brand: String?): ViewModel() {
+class AuthenticationViewModel(val code: String?, brand: String?): ViewModel() {
 
     companion object{
         val factory = doubleArgsViewModelFactory(::AuthenticationViewModel)
     }
 
     private val options by lazy {
-        AuthenticationOptions(username, brand)
+        AuthenticationOptions(code, brand)
     }
 
     fun getAuthenticationUrl(): Uri{
