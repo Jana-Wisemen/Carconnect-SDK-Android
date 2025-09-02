@@ -18,6 +18,7 @@
 .idea/
 */local.properties
 */out
+local.properties
 
 app/build
 
